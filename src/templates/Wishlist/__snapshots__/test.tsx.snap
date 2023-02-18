@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Wishlist /> should render correctly 1`] = `
+@media (min-width:768px) {
+
+}
+
+@media (max-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (max-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (max-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<div
+  data-testid="Mock Showcase"
+/>
+`
