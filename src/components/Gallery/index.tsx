@@ -78,7 +78,6 @@ const Gallery = ({ items }: GalleryProps) => {
     <S.Wrapper>
       <Slider ref={slider} settings={settings}>
         {items.map((item, index) => (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             role="button"
             key={`thumb-${index}`}
@@ -104,7 +103,6 @@ const Gallery = ({ items }: GalleryProps) => {
         <S.Content>
           <Slider ref={slider} settings={modalSettings}>
             {items.map((item, index) => (
-              // eslint-disable-next-line @next/next/no-img-element
               <img key={`gallery-${index}`} src={item.src} alt={item.label} />
             ))}
           </Slider>

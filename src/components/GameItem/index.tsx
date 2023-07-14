@@ -26,7 +26,6 @@ const GameItem = ({
   <S.Wrapper>
     <S.GameContent>
       <S.ImageBox>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={img} alt={title} />
       </S.ImageBox>
 
@@ -52,7 +51,6 @@ const GameItem = ({
         <p>{paymentInfo.purchaseDate}</p>
         <S.CardInfo>
           <span>{paymentInfo.number}</span>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={paymentInfo.img} alt={paymentInfo.flag} />
         </S.CardInfo>
       </S.PaymentContent>
