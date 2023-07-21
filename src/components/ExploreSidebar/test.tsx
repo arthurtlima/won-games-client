@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { renderWithTheme } from 'utils/tests/helpers'
 
 import ExploreSidebar from '.'
-import { renderWithTheme } from 'utils/tests/helpers'
 
 import items from './mock'
 
 describe('<ExploreSidebar />', () => {
-  it('should render the headings', () => {
+  it('should render headings', () => {
     renderWithTheme(<ExploreSidebar items={items} onFilter={jest.fn} />)
 
     expect(screen.getByRole('heading', { name: /price/i })).toBeInTheDocument()
@@ -41,10 +41,7 @@ describe('<ExploreSidebar />', () => {
       <ExploreSidebar
         items={items}
         onFilter={jest.fn}
-        initialValues={{
-          windows: true,
-          sort_by: 'low-to-high'
-        }}
+        initialValues={{ windows: true, sort_by: 'low-to-high' }}
       />
     )
 
@@ -59,20 +56,14 @@ describe('<ExploreSidebar />', () => {
     renderWithTheme(
       <ExploreSidebar
         items={items}
-        initialValues={{
-          windows: true,
-          sort_by: 'low-to-high'
-        }}
+        initialValues={{ windows: true, sort_by: 'low-to-high' }}
         onFilter={onFilter}
       />
     )
 
     userEvent.click(screen.getByRole('button', { name: /filter/i }))
 
-    expect(onFilter).toBeCalledWith({
-      windows: true,
-      sort_by: 'low-to-high'
-    })
+    expect(onFilter).toBeCalledWith({ windows: true, sort_by: 'low-to-high' })
   })
 
   it('should filter with checked values', () => {
@@ -93,7 +84,7 @@ describe('<ExploreSidebar />', () => {
     })
   })
 
-  it('should altern between radio option', () => {
+  it('should altern between radio options', () => {
     const onFilter = jest.fn()
 
     renderWithTheme(<ExploreSidebar items={items} onFilter={onFilter} />)
@@ -103,8 +94,6 @@ describe('<ExploreSidebar />', () => {
 
     userEvent.click(screen.getByRole('button', { name: /filter/i }))
 
-    expect(onFilter).toBeCalledWith({
-      sort_by: 'high-to-low'
-    })
+    expect(onFilter).toBeCalledWith({ sort_by: 'high-to-low' })
   })
 })
