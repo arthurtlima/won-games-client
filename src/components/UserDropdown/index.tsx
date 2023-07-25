@@ -19,7 +19,7 @@ const UserDropdown = ({ username }: UserDropdownProps) => (
     title={
       <>
         <AccountCircle size={24} />
-        {username}
+        <S.Username>{username}</S.Username>
         <ChevronDown size={24} />
       </>
     }
@@ -33,16 +33,16 @@ const UserDropdown = ({ username }: UserDropdownProps) => (
       </Link>
 
       <Link href="/wishlist" passHref>
-        <S.Link title="My profile">
+        <S.Link title="Wishlist">
           <FavoriteBorder />
-          <span>My Profile</span>
+          <span>Wishlist</span>
         </S.Link>
       </Link>
 
       <Link href="/logout" passHref>
-        <S.Link title="My profile">
+        <S.Link title="Sign out">
           <ExitToApp />
-          <span>My Profile</span>
+          <span>Sign out</span>
         </S.Link>
       </Link>
     </S.Nav>
