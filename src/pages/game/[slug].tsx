@@ -4,8 +4,6 @@ import { initializeApollo } from 'utils/tests/apollo'
 
 import Game, { GameTemplateProps } from 'templates/Game'
 
-import gamesMock from 'components/GameCardSlider/mock'
-import highlightMock from 'components/Highlight/mock'
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
 import { QUERY_GAMES, QUERY_GAME_BY_SLUG } from 'graphql/queries/games'
 import {
@@ -14,7 +12,12 @@ import {
 } from 'graphql/generated/QueryGameBySlug'
 import { QueryRecommended } from 'graphql/generated/QueryRecommended'
 import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
-import { gamesMapper } from 'utils/mappers'
+import { gamesMapper, highlightMapper } from 'utils/mappers'
+import {
+  QueryUpcoming,
+  QueryUpcomingVariables
+} from 'graphql/generated/QueryUpcoming'
+import { QUERY_UPCOMING } from 'graphql/queries/upcoming'
 
 const apolloClient = initializeApollo()
 
@@ -58,10 +61,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const game = data.games[0]
 
   // Get recommended games
-
   const { data: recommended } = await apolloClient.query<QueryRecommended>({
     query: QUERY_RECOMMENDED,
     variables: { slug: `${params?.slug}` }
+  })
+
+  // Get upcoming games and highlight
+  const TODAY = new Date().toISOString().slice(0, 10) // yyyy-mm-dd
+
+  const { data: upcoming } = await apolloClient.query<
+    QueryUpcoming,
+    QueryUpcomingVariables
+  >({
+    query: QUERY_UPCOMING,
+    variables: { date: TODAY }
   })
 
   return {
@@ -86,8 +99,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         rating: 'BR18',
         genres: game.categories.map((category) => category.name)
       },
-      upcomingGames: gamesMock,
-      upcomingHighlight: highlightMock,
+      upcomingGames: gamesMapper(upcoming?.upcomingGames),
+      upcomingHighlight: highlightMapper(
+        upcoming?.showcase?.upcomingGames?.highlight
+      ),
       recommendedTitle: recommended?.recommended?.section?.title,
       recommendedGames: gamesMapper(recommended?.recommended?.section?.games)
     }
