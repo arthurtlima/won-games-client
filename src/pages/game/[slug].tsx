@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import { initializeApollo } from 'utils/tests/apollo'
+import { initializeApollo } from 'utils/apollo'
 
 import Game, { GameTemplateProps } from 'templates/Game'
 

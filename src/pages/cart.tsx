@@ -1,4 +1,4 @@
-import { initializeApollo } from 'utils/tests/apollo'
+import { initializeApollo } from 'utils/apollo'
 import { QueryRecommended } from 'graphql/generated/QueryRecommended'
 import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
 
