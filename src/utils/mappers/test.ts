@@ -3,7 +3,7 @@ import {
   QueryHome_sections_freeGames_highlight
 } from 'graphql/generated/QueryHome'
 
-import { bannerMapper, gamesMapper, highlightMapper } from '.'
+import { bannerMapper, cartMapper, gamesMapper, highlightMapper } from '.'
 import { QueryGames_games } from 'graphql/generated/QueryGames'
 
 describe('bannerMapper()', () => {
@@ -103,5 +103,31 @@ describe('highlightMapper()', () => {
       buttonLink: 'https://wongames.willianjusten.com.br/games',
       alignment: 'right'
     })
+  })
+})
+
+describe('cartMapper()', () => {
+  it('should return an empty array if no games', () => {
+    expect(cartMapper(undefined)).toStrictEqual([])
+  })
+
+  it('should return mapped items', () => {
+    const game = {
+      id: '1',
+      cover: {
+        url: '/image.jpg'
+      },
+      name: 'game',
+      price: 10
+    } as QueryGames_games
+
+    expect(cartMapper([game])).toStrictEqual([
+      {
+        id: '1',
+        img: 'http://localhost:1337/image.jpg',
+        title: 'game',
+        price: '$10.00'
+      }
+    ])
   })
 })
