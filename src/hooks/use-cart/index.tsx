@@ -6,7 +6,7 @@ import { cartMapper } from 'utils/mappers'
 
 const CART_KEY = 'cartItems'
 
-export type CartItem = {
+type CartItem = {
   id: string
   img: string
   title: string
@@ -21,7 +21,7 @@ export type CartContextData = {
   addToCart: (id: string) => void
   removeFromCart: (id: string) => void
   clearCart: () => void
-  loading?: boolean
+  loading: boolean
 }
 
 export const CartContextDefaultValues = {
@@ -67,7 +67,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     return acc + game.price
   }, 0)
 
-  const isInCart = (id: string) => cartItems.includes(id)
+  const isInCart = (id: string) => (id ? cartItems.includes(id) : false)
 
   const saveCart = (cartItems: string[]) => {
     setCartItems(cartItems)

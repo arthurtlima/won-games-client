@@ -7,7 +7,7 @@ import items from './mock'
 export default {
   title: 'GameCardSlider',
   component: GameCardSlider,
-  args: { items },
+  args: { items, isInCart: () => false },
   parameters: {
     layout: 'fullscreen',
     backgrounds: {

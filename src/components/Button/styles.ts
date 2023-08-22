@@ -46,6 +46,7 @@ const wrapperModifiers = {
     &:disabled {
       cursor: not-allowed;
       filter: saturate(30%);
+    }
   `
 }
 
