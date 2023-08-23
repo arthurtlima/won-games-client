@@ -2,6 +2,7 @@ import { Story, Meta } from '@storybook/react'
 import GameItem, { GameItemProps } from '.'
 
 export default {
+  id: '1',
   title: 'GameItem',
   component: GameItem,
   args: {

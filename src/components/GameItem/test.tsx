@@ -1,8 +1,11 @@
 import { render, screen } from 'utils/test-utils'
+import userEvent from '@testing-library/user-event'
 
 import GameItem from '.'
+import { CartContextDefaultValues } from 'hooks/use-cart'
 
 const props = {
+  id: '1',
   img: 'https://source.unsplash.com/user/willianjusten/300x140',
   title: 'Red Dead Redemption 2',
   price: 'R$ 215,00'
@@ -22,6 +25,21 @@ describe('<GameItem />', () => {
     )
 
     expect(screen.getByText('R$ 215,00')).toBeInTheDocument()
+  })
+
+  it('should render remove if the item is inside the cart and call remove', () => {
+    const cartProviderProps = {
+      ...CartContextDefaultValues,
+      isInCart: () => true,
+      removeFromCart: jest.fn()
+    }
+    render(<GameItem {...props} />, { cartProviderProps })
+
+    const removeLink = screen.getByText(/remove/i)
+    expect(removeLink).toBeInTheDocument()
+
+    userEvent.click(removeLink)
+    expect(cartProviderProps.removeFromCart).toHaveBeenCalledWith('1')
   })
 
   it('should render the item with download link', () => {
