@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/react'
+import { Story, Meta } from '@storybook/react/types-6-0'
 import CardsList, { CardsListProps } from '.'
 
 import cardsMock from 'components/PaymentOptions/mock'
