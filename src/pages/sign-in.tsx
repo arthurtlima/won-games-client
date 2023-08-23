@@ -1,10 +1,10 @@
 import Auth from 'templates/Auth'
-import FormSigin from 'components/FormSigin'
+import FormSigIn from 'components/FormSignIn'
 
 export default function SingIn() {
   return (
     <Auth title="Sign In">
-      <FormSigin />
+      <FormSigIn />
     </Auth>
   )
 }
