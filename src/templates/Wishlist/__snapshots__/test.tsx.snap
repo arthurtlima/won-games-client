@@ -5,34 +5,6 @@ exports[`<Wishlist /> should render correctly 1`] = `
 
 }
 
-@media (max-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (max-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (max-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
 @media (min-width:768px) {
 
 }
