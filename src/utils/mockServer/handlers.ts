@@ -11,8 +11,8 @@ export const handlers = [
     (req, res, ctx) => {
       const { email } = req.body
 
-      // quando der error
-      if (email === 'false@emai.com') {
+      // quando der erro
+      if (email === 'false@email.com') {
         return res(
           ctx.status(400),
           ctx.json({
@@ -30,7 +30,7 @@ export const handlers = [
         )
       }
 
-      // quando for suceso
+      // quando for sucesso
       return res(
         ctx.status(200),
         ctx.json({
