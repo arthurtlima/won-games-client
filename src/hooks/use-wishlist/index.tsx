@@ -10,7 +10,7 @@ import {
 import { useQueryWishlist } from 'graphql/queries/wishlist'
 import { gamesMapper } from 'utils/mappers'
 
-export type WishListContextData = {
+export type WishlistContextData = {
   items: GameCardProps[]
   isInWishlist: (id: string) => boolean
   addToWishlist: (id: string) => void
@@ -18,7 +18,7 @@ export type WishListContextData = {
   loading: boolean
 }
 
-export const WishListContextDefaultValues = {
+export const WishlistContextDefaultValues = {
   items: [],
   isInWishlist: () => false,
   addToWishlist: () => null,
@@ -26,8 +26,8 @@ export const WishListContextDefaultValues = {
   loading: false
 }
 
-export const WishlistContext = createContext<WishListContextData>(
-  WishListContextDefaultValues
+export const WishlistContext = createContext<WishlistContextData>(
+  WishlistContextDefaultValues
 )
 
 export type WishlistProviderProps = {
