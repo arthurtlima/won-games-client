@@ -1,5 +1,5 @@
-import { Session } from 'next-auth'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
@@ -10,6 +10,7 @@ import Heading from 'components/Heading'
 
 import * as S from './styles'
 import { createPaymentIntent } from 'utils/stripe/methods'
+import { Session } from 'next-auth'
 import { FormLoading } from 'components/Form'
 
 type PaymentFormProps = {
@@ -18,8 +19,10 @@ type PaymentFormProps = {
 
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
+  const { push } = useRouter()
   const stripe = useStripe()
   const elements = useElements()
+
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -29,14 +32,14 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
   useEffect(() => {
     async function setPaymentMode() {
       if (items.length) {
-        // bater na api /orders/create-payment-intent
+        // bater na API /orders/create-payment-intent
         const data = await createPaymentIntent({
           items,
-          token: session?.jwt as string
+          token: session.jwt as string
         })
 
-        // se eu receber freeGames: true
-        // segue o fluxo gratuito
+        // se eu receber freeGames: true => setFreeGames
+        // faço o fluxo de jogo gratuito
         if (data.freeGames) {
           setFreeGames(true)
           return
@@ -46,13 +49,12 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
         // setError
         if (data.error) {
           setError(data.error)
-          return
+        } else {
+          // senão o paymentIntent foi válido
+          // setClientSecret
+          setFreeGames(false)
+          setClientSecret(data.client_secret)
         }
-
-        // senão o paymentIntent foi válido
-        // setClientSecret
-        setFreeGames(false)
-        setClientSecret(data.client_secret)
       }
     }
 
@@ -61,7 +63,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
 
   const handleChange = async (event: StripeCardElementChangeEvent) => {
     setDisabled(event.empty)
-    setError(event.error ? event.error.message : null)
+    setError(event.error ? event.error.message : '')
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -69,8 +71,12 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     setLoading(true)
 
     // se for freeGames
-    // salva no banco
-    // redireciona para success
+    if (freeGames) {
+      // salva no banco
+      // redireciona para success
+      push('/success')
+      return
+    }
 
     const payload = await stripe!.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -87,6 +93,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
 
       // salvar a compra no banco do Strapi
       // redirectionar para a página de Sucesso
+      push('/success')
     }
   }
 
@@ -113,6 +120,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
               onChange={handleChange}
             />
           )}
+
           {error && (
             <S.Error>
               <ErrorOutline size={20} />
