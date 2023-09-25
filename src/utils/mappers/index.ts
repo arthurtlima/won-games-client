@@ -3,8 +3,10 @@ import {
   QueryHome_banners,
   QueryHome_sections_freeGames_highlight
 } from 'graphql/generated/QueryHome'
-import { QueryWishList_wishlists_games } from 'graphql/generated/QueryWishList'
+import { QueryWishlist_wishlists_games } from 'graphql/generated/QueryWishlist'
 import formatPrice from 'utils/format-price'
+
+import { QueryOrders_orders } from 'graphql/generated/QueryOrders'
 
 export const bannerMapper = (banners: QueryHome_banners[]) => {
   return banners.map((banner) => ({
@@ -22,7 +24,7 @@ export const bannerMapper = (banners: QueryHome_banners[]) => {
 }
 
 export const gamesMapper = (
-  games: QueryGames_games[] | QueryWishList_wishlists_games[] | null | undefined
+  games: QueryGames_games[] | QueryWishlist_wishlists_games[] | null | undefined
 ) => {
   return games
     ? games.map((game) => ({
@@ -60,5 +62,35 @@ export const cartMapper = (games: QueryGames_games[] | undefined) => {
         title: game.name,
         price: formatPrice(game.price)
       }))
+    : []
+}
+
+export const ordersMapper = (orders: QueryOrders_orders[]) => {
+  return orders
+    ? orders.map((order) => {
+        return {
+          id: order.id,
+          paymentInfo: {
+            flag: order.card_brand,
+            img: order.card_brand ? `/img/cards/${order.card_brand}.png` : null,
+            number: order.card_last4
+              ? `**** **** **** ${order.card_last4}`
+              : 'Free Game',
+            purchaseDate: `Purchase made on ${new Intl.DateTimeFormat('en-US', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            }).format(new Date(order.created_at))}`
+          },
+          games: order.games.map((game) => ({
+            id: game.id,
+            title: game.name,
+            downloadLink:
+              'https://wongames.com/game/download/yuYT56Tgh431LkjhNBgdf',
+            img: `http://localhost:1337${game.cover?.url}`,
+            price: formatPrice(game.price)
+          }))
+        }
+      })
     : []
 }
