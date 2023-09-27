@@ -104,10 +104,9 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       setError(null)
       setLoading(false)
 
-      saveOrder(payload.paymentIntent)
-
       // salvar a compra no banco do Strapi
       //bater na API /orders
+      saveOrder(payload.paymentIntent)
 
       // redirectionar para a página de Sucesso
       push('/success')
