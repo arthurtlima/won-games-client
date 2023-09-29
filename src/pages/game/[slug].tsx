@@ -1,4 +1,3 @@
-import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { initializeApollo } from 'utils/apollo'
 
@@ -10,6 +9,7 @@ import {
   QueryGameBySlug,
   QueryGameBySlugVariables
 } from 'graphql/generated/QueryGameBySlug'
+import { GetStaticProps } from 'next'
 import { QueryRecommended } from 'graphql/generated/QueryRecommended'
 import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
 import { gamesMapper, highlightMapper } from 'utils/mappers'
@@ -18,13 +18,16 @@ import {
   QueryUpcomingVariables
 } from 'graphql/generated/QueryUpcoming'
 import { QUERY_UPCOMING } from 'graphql/queries/upcoming'
+import { getImageUrl } from 'utils/getImageUrl'
 
 const apolloClient = initializeApollo()
 
 export default function Index(props: GameTemplateProps) {
   const router = useRouter()
 
-  // retorna um loading ou qualquer coisa enquanto tá gerando a página
+  // se a rota não tiver sido gerada ainda
+  // você pode mostrar um loading
+  // uma tela de esqueleto
   if (router.isFallback) return null
 
   return <Game {...props} />
@@ -61,27 +64,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const game = data.games[0]
 
-  // Get recommended games
+  // get recommended games
   const { data: recommended } = await apolloClient.query<QueryRecommended>({
-    query: QUERY_RECOMMENDED,
-    variables: { slug: `${params?.slug}` }
+    query: QUERY_RECOMMENDED
   })
 
-  // Get upcoming games and highlight
-  const TODAY = new Date().toISOString().slice(0, 10) // yyyy-mm-dd
-
+  // get upcoming games and highlight
+  const TODAY = new Date().toISOString().slice(0, 10)
   const { data: upcoming } = await apolloClient.query<
     QueryUpcoming,
     QueryUpcomingVariables
-  >({
-    query: QUERY_UPCOMING,
-    variables: { date: TODAY }
-  })
+  >({ query: QUERY_UPCOMING, variables: { date: TODAY } })
 
   return {
     revalidate: 60,
     props: {
-      cover: `https://localhost:1377${game.cover?.src}`,
+      cover: `${getImageUrl(game.cover?.src)}`,
       gameInfo: {
         id: game.id,
         title: game.name,
@@ -89,7 +87,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         description: game.short_description
       },
       gallery: game.gallery.map((image) => ({
-        src: `https://localhost:1377${image.src}`,
+        src: `${getImageUrl(image.src)}`,
         label: image.label
       })),
       description: game.description,
@@ -98,15 +96,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         releaseDate: game.release_date,
         platforms: game.platforms.map((platform) => platform.name),
         publisher: game.publisher?.name,
-        rating: 'BR18',
+        rating: game.rating,
         genres: game.categories.map((category) => category.name)
       },
-      upcomingGames: gamesMapper(upcoming?.upcomingGames),
+      upcomingTitle: upcoming.showcase?.upcomingGames?.title,
+      upcomingGames: gamesMapper(upcoming.upcomingGames),
       upcomingHighlight: highlightMapper(
-        upcoming?.showcase?.upcomingGames?.highlight
+        upcoming.showcase?.upcomingGames?.highlight
       ),
-      recommendedTitle: recommended?.recommended?.section?.title,
-      recommendedGames: gamesMapper(recommended?.recommended?.section?.games)
+      recommendedTitle: recommended.recommended?.section?.title,
+      recommendedGames: gamesMapper(recommended.recommended?.section?.games)
     }
   }
 }

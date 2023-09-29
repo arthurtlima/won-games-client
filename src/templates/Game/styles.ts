@@ -11,26 +11,22 @@ export const Main = styled.main`
   `}
 `
 
-type CoverProps = {
-  src: string
-}
+export const Cover = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 39.5rem;
+  opacity: 0.4;
 
-export const Cover = styled.div<CoverProps>`
-  ${({ src }) => css`
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 39.5rem;
-    background-image: url(${src});
-    background-size: cover;
-    background-position: top center;
-    opacity: 0.4;
+  img {
+    object-fit: cover;
+    object-position: top center;
+  }
 
-    ${media.greaterThan('medium')`
-      height: 70rem;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
-    `}
+  ${media.greaterThan('medium')`
+    height: 70rem;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
   `}
 `
 
@@ -48,10 +44,12 @@ export const SectionGameInfo = styled(Section)``
 
 export const SectionGallery = styled(Section)`
   display: none;
+
   ${media.greaterThan('medium')`
-  display: block;
-`}
+    display: block;
+  `}
 `
+
 export const SectionDescription = styled(Section)`
   ${({ theme }) => css`
     .description__copyrights {

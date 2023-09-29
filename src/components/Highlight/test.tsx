@@ -12,26 +12,28 @@ const props = {
 }
 
 describe('<Highlight />', () => {
-  it('should render the headings and button', () => {
-    render(<Highlight {...props} />)
+  it('should render headings and button', () => {
+    const { container } = render(<Highlight {...props} />)
 
     expect(
-      screen.getByRole('heading', { name: /Heading 1/i })
+      screen.getByRole('heading', { name: /heading 1/i })
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('heading', { name: /Heading 2/i })
+      screen.getByRole('heading', { name: /heading 2/i })
     ).toBeInTheDocument()
 
-    expect(screen.getByRole('link', { name: /Buy now/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /buy now/i })).toBeInTheDocument()
+
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('should render background image', () => {
-    const { container } = render(<Highlight {...props} />)
+    render(<Highlight {...props} />)
 
-    expect(container.firstChild).toHaveStyle({
-      backgroundImage: `url(${props.backgroundImage})`
-    })
+    expect(
+      screen.getByRole('img', { name: `${props.title} background` })
+    ).toHaveAttribute('src', `${props.backgroundImage}`)
   })
 
   it('should render float image', () => {
