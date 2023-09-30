@@ -20,8 +20,6 @@ export async function getStaticProps() {
     fetchPolicy: 'no-cache'
   })
 
-  console.log('AAAA ', process.env.NEXT_PUBLIC_IMAGE_HOST)
-
   return {
     revalidate: 60,
     props: {
