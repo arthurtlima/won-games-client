@@ -64,7 +64,12 @@ const GameItem = ({
           <S.CardInfo>
             <span>{paymentInfo.number}</span>
             {!!paymentInfo.img && !!paymentInfo.flag && (
-              <Image src={paymentInfo.img} alt={paymentInfo.flag} />
+              <Image
+                src={paymentInfo.img}
+                alt={paymentInfo.flag}
+                width={38}
+                height={24}
+              />
             )}
           </S.CardInfo>
         </S.PaymentContent>
