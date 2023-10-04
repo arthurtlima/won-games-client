@@ -16,6 +16,7 @@ const Empty = ({ title, description, hasLink }: EmptyProps) => (
       alt="A gamer in a couch playing videogame"
       width={380}
       height={285}
+      priority
     />
 
     <S.Title>{title}</S.Title>

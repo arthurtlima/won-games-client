@@ -32,7 +32,7 @@ const Banner = ({
       </Ribbon>
     )}
     <S.ImageWrapper>
-      <Image src={img} alt={title} layout="fill" objectFit="cover" />
+      <Image src={img} alt={title} layout="fill" objectFit="cover" priority />
     </S.ImageWrapper>
 
     <S.Caption>

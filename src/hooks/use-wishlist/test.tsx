@@ -100,7 +100,7 @@ describe('useWishlist', () => {
     })
   })
 
-  it('should remove item in wishlist updating the current list', async () => {
+  it('should remove item from wishlist', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <MockedProvider mocks={[wishlistMock, removeWishlistMock]}>
         <WishlistProvider>{children}</WishlistProvider>

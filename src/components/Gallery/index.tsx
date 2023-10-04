@@ -83,6 +83,7 @@ const Gallery = ({ items }: GalleryProps) => {
             width={295}
             height={165}
             role="button"
+            priority
             key={`thumb-${index}`}
             src={item.src}
             alt={`Thumb - ${item.label}`}
@@ -107,6 +108,7 @@ const Gallery = ({ items }: GalleryProps) => {
           <Slider ref={slider} settings={modalSettings}>
             {items.map((item, index) => (
               <Image
+                priority
                 width={1200}
                 height={675}
                 key={`gallery-${index}`}
