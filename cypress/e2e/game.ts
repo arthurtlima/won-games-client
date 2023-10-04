@@ -1,9 +1,11 @@
 /// <reference types="../support/index.d.ts" />
 
 describe('Game Page', () => {
-    it('should render game page sections', () => {
-     cy.visit('/game/baldurs-gate-iii')
+    before(() => {
+        cy.visit('/game/baldurs-gate-iii')
+    })
 
+    it('should render game page sections', () => {
      cy.getByDataCy('game-info').within(() => {
         cy.findByRole('heading', { name: /baldur's gate 3/i }).should('exist')	
         cy.findByText(/^Gather your party, and return to/i ).should('exist')
@@ -41,5 +43,19 @@ describe('Game Page', () => {
 
      cy.shouldRenderShowcase({ name: 'Upcoming Games', highlight: true })
      cy.shouldRenderShowcase({ name: 'You may like these games', highlight: false })
+    })
+
+    it('should add/remove game in cart', () => {
+        cy.getByDataCy('game-info').within(() => {
+            cy.findByRole('button', { name: /add to cart/i }).click()
+
+            cy.findByRole('button', { name: /remove from cart/i }).should('exist')
+        })
+
+        cy.findAllByLabelText(/cart items/i).first().should('have.text', 1).click()
+
+        cy.getByDataCy('cart-list').within(() => {
+            cy.findByRole('heading', { name: /baldur's gate 3/i }).should('exist')	
+        })
     })
 })
