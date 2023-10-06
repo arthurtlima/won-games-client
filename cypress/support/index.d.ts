@@ -6,6 +6,11 @@ type ShowcaseAttributes = {
   highlight?: boolean
 }
 
+type FieldsAttributes = {
+  label: string;
+  name: string | number;
+}
+
 declare namespace Cypress {
   interface Chainable {
     /**
@@ -14,11 +19,17 @@ declare namespace Cypress {
      */
     google(): Chainable<Window>
 
-     /**
+    /**
      * Custom command to get element by data-cy value
      * @example cy.getByDataCy('selector')
      */
     getByDataCy(selector: string): Chainable<Element>
+
+    /**
+     * Custom command to get fields by label 
+     * @example cy.shouldRenderFields(fields)
+     */
+    getFields(fields: FieldsAttributes[]): Chainable<Element>
     
     /**
      * Custom command to check banner in page
@@ -26,10 +37,10 @@ declare namespace Cypress {
      */
     shouldRenderBanner(): Chainable<Element>
 
-        /**
+    /**
      * Custom command to check showcase in page
      * @example cy.shouldRenderShowcase({ name: 'Showcase', highlight: true})
      */
-        shouldRenderShowcase(attrs: ShowcaseAttributes): Chainable<Element>
+    shouldRenderShowcase(attrs: ShowcaseAttributes): Chainable<Element>
   }
 }
