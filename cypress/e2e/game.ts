@@ -46,16 +46,32 @@ describe('Game Page', () => {
     })
 
     it('should add/remove game in cart', () => {
+        // add to cart
         cy.getByDataCy('game-info').within(() => {
             cy.findByRole('button', { name: /add to cart/i }).click()
-
             cy.findByRole('button', { name: /remove from cart/i }).should('exist')
         })
-
-        cy.findAllByLabelText(/cart items/i).first().should('have.text', 1).click()
-
+    
+        cy.findAllByLabelText(/cart items/i)
+            .first()
+            .contains(1)
+            .click()
+  
         cy.getByDataCy('cart-list').within(() => {
-            cy.findByRole('heading', { name: /baldur's gate 3/i }).should('exist')	
+            cy.findByRole('heading', { name: /baldur's gate 3/i }).should('exist')
         })
-    })
+  
+        // close dropdown
+        cy.findAllByLabelText(/cart items/i)
+            .first()
+            .click()
+  
+        // remove from cart
+        cy.getByDataCy('game-info').within(() => {
+            cy.findByRole('button', { name: /remove from cart/i }).click()
+            cy.findByRole('button', { name: /add to cart/i }).should('exist')
+        })
+    
+        cy.findAllByLabelText(/cart items/i).should('not.exist')
+    });
 })
