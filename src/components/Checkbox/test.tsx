@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from 'utils/test-utils'
 import userEvent from '@testing-library/user-event'
+import 'jest-styled-components'
 
 import theme from 'styles/theme'
 import Checkbox from '.'
@@ -33,9 +34,9 @@ describe('<Checkbox />', () => {
       <Checkbox label="checkbox label" labelFor="check" labelColor="black" />
     )
 
-    expect(screen.getByText(/checkbox label/i)).toHaveStyle({
-      color: theme.colors.black
-    })
+    expect(screen.getByText(/checkbox label/i)).toHaveStyle(
+      `color: ${theme.colors.black}`
+    )
   })
 
   it('should dispatch onCheck when status changes', async () => {
