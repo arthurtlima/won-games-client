@@ -75,9 +75,10 @@ Cypress.Commands.add('getFields', (fields) => {
 })
 
 Cypress.Commands.add('shouldBeGreaterThan', (value)=>{
-    cy.findByText(/^\$\d+(\.\d{1,2})?/).invoke('text').then($el => $el.replace('$', '')).then(parseFloat).should('be.gt', value)
+    cy.findByText(/^\$\d+(\.\d{1,2})?/).invoke('text').then($el => $el === 'Free' ? 0 : $el.replace('$', '')
+    ).then(parseFloat).should('be.gt', value)
 })
 
 Cypress.Commands.add('shouldBeLessThan', (value)=>{
-    cy.findByText(/^\$\d+(\.\d{1,2})?/).invoke('text').then($el => $el.replace('$', '')).then(parseFloat).should('be.lt', value)
+    cy.findByText(/^\$\d+(\.\d{1,2})?/).invoke('text').then($el => $el === 'Free' ? 0 : $el.replace('$', '')).then(parseFloat).should('be.lt', value)
 })
