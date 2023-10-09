@@ -18,7 +18,7 @@ Table of Contents
    * [How to run the project](#-how-to-run-the-project)
    * [Technologies](#-technologies)
    * [License](#user-content--licença)
-   * [Learn more](#learn-more)
+   * [Learn more](#-learn-more)
 <!--te-->
 
 ## 💻 About the project
@@ -199,6 +199,8 @@ yarn develop
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+
+To run this application locally, you need to execute the <a href="https://github.com/arthurtlima/wongames-api">wongames-api</a> simultaneously.
 
 ### Commands
 
