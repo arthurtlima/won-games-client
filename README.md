@@ -200,7 +200,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-To run this application locally, you need to execute the <a href="https://github.com/arthurtlima/wongames-api">wongames-api</a> simultaneously.
+To run this application locally, you need to execute the <a href="https://github.com/arthurtlima/won-games-api">won-games-api</a> simultaneously.
 
 ### Commands
 
