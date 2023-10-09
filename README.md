@@ -23,9 +23,9 @@ Table of Contents
 
 ## 💻 About the project
 
-<p>The project is an e-commerce platform for games, encompassing payment processing and customer accounts. Customers can search, filter, add items to the cart, and purchase their favorite games.
+<p>The project is an e-commerce platform for games, encompassing payment processing and customer accounts. Users can create an account, search and filter games, add items to the cart, and purchase their favorite games. They can also create a wishlist.
 
-The store's products will be managed using Strapi headless CMS, and the payment processing will be handled through Stripe.</p>
+The store's products and user accounts will be managed through the Strapi headless CMS, and payment processing will be handled via Stripe.</p>
 
 ## 🎨 Layout
 
@@ -228,6 +228,7 @@ The following tools were used in the project's construction:
 - [Husky](https://github.com/typicode/husky)
 - [Cypress](https://www.cypress.io/)
 - [GraphQl](https://graphql.org/)
+- [Stripe](https://stripe.com/)
 
 ## 📝 License
 
