@@ -1,13 +1,14 @@
 /// <reference types="../support/index.d.ts" />
 
+import { createUser } from "../support/generate"
+
 describe('User Page', () => {
     it('should sign up', () => {
+        const user = createUser()
         cy.visit('/sign-up')
-     
-        cy.findByPlaceholderText(/username/i).type('cypress')
-        cy.findByPlaceholderText(/email/i).type('e2e@wongames.com')
-        cy.findByPlaceholderText(/^password/i).type('123456')
-        cy.findByPlaceholderText(/confirm password/i).type('123456')
-        cy.findByRole('button', { name: /sign up now/i }).click()
+        cy.signUp(user)
+        
+        cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+        cy.findByText(user.username).should('exist')
     })
 })

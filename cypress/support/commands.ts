@@ -82,3 +82,11 @@ Cypress.Commands.add('shouldBeGreaterThan', (value)=>{
 Cypress.Commands.add('shouldBeLessThan', (value)=>{
     cy.findByText(/^\$\d+(\.\d{1,2})?/).invoke('text').then($el => $el === 'Free' ? 0 : $el.replace('$', '')).then(parseFloat).should('be.lt', value)
 })
+
+Cypress.Commands.add('signUp', (user)=>{     
+    cy.findByPlaceholderText(/username/i).type(user.username)
+    cy.findByPlaceholderText(/email/i).type(user.email)
+    cy.findByPlaceholderText(/^password/i).type(user.password)
+    cy.findByPlaceholderText(/confirm password/i).type(user.password)
+    cy.findByRole('button', { name: /sign up now/i }).click()
+})

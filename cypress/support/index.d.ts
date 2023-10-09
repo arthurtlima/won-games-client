@@ -1,6 +1,12 @@
 // load type definitions from Cypress module
 /// <reference types="cypress" />
 
+type User = {
+  username: string
+  email: string
+  password: string
+}
+
 type ShowcaseAttributes = {
   name: string
   highlight?: boolean
@@ -54,5 +60,11 @@ declare namespace Cypress {
      * @example cy.shouldBeGreaterThan(50)
      */
     shouldBeGreaterThan(value: number): Chainable<Element>
+
+     /**
+     * Custom command to check if value is greater than price
+     * @example cy.signUp({ username: 'username', email: 'email@email.com', password: '123'})
+     */
+     signUp(user: User): Chainable<Element>
   }
 }
