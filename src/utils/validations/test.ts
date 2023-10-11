@@ -65,7 +65,7 @@ describe('Validations', () => {
       }
 
       expect(signUpValidate(values).confirm_password).toMatchInlineSnapshot(
-        `"confirm password does not match with confirm password"`
+        `"confirm password does not match with password"`
       )
     })
   })
@@ -115,7 +115,7 @@ describe('resetValidate()', () => {
     }
 
     expect(resetValidate(values).confirm_password).toMatchInlineSnapshot(
-      `"confirm password does not match with confirm password"`
+      `"confirm password does not match with password"`
     )
   })
 })

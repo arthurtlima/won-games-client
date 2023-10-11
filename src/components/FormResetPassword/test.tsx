@@ -38,9 +38,7 @@ describe('<FormResetPassword />', () => {
     userEvent.click(screen.getByRole('button', { name: /reset password/i }))
 
     expect(
-      await screen.findByText(
-        'confirm password does not match with confirm password'
-      )
+      await screen.findByText('confirm password does not match with password')
     ).toBeInTheDocument()
   })
 

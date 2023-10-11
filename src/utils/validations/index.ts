@@ -11,7 +11,7 @@ const fieldsValidations = {
     .valid(Joi.ref('password'))
     .required()
     .messages({
-      'any.only': 'confirm password does not match with confirm password'
+      'any.only': 'confirm password does not match with password'
     })
 }
 
