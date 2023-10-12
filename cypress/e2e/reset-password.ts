@@ -38,7 +38,7 @@ describe('Forgot Password', () => {
         cy.findByText(/incorrect code provided/i).should('exist')
     })
 
-    it.only('should fill the input and redirect to the home page with the user signed in', () => {
+    it('should fill the input and redirect to the home page with the user signed in', () => {
         // interceptar as chamadas
 
         // rota do nosso backend
