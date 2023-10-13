@@ -8,7 +8,13 @@ export type User = {
 
 export const createUser = build<User>('User', {
   fields: {
-    username: fake(f => f.name.firstName()),
+    username: fake(f => { 
+      let username: string;
+      do {
+        username = f.internet.userName();
+      } while (username.length < 5 || !/^[a-zA-Z0-9]+$/.test(username));
+      return username
+    }),
     password: fake(f => f.internet.password()),
     email: ''
   },
