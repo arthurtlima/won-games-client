@@ -86,7 +86,7 @@ exports[`<FormSignIn /> should render the form 1`] = `
 }
 
 .c8:focus {
-  outline: 1px dashed;
+  box-shadow: 0 0 0 3px #3CD3C1;
 }
 
 .c8:hover {
