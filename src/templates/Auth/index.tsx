@@ -18,7 +18,6 @@ const Auth = ({ title, children }: AuthProps) => (
         alt="Won Games Auth Page"
         layout="fill"
         objectFit="cover"
-        priority
       />
       <S.BannerContent>
         <Link href="/">

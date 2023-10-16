@@ -60,7 +60,7 @@ const Game = ({
       }}
     />
     <S.Cover>
-      <Image src={cover} alt={gameInfo.title} layout="fill" priority />
+      <Image src={cover} alt={gameInfo.title} layout="fill" />
     </S.Cover>
     <S.Main>
       <S.SectionGameInfo>

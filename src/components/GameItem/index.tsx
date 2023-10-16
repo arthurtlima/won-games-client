@@ -33,7 +33,7 @@ const GameItem = ({
     <S.Wrapper data-cy="game-item">
       <S.GameContent>
         <S.ImageBox>
-          <Image src={img} alt={title} layout="fill" priority />
+          <Image src={img} alt={title} layout="fill" />
         </S.ImageBox>
 
         <S.Content>
@@ -65,7 +65,6 @@ const GameItem = ({
             <span>{paymentInfo.number}</span>
             {!!paymentInfo.img && !!paymentInfo.flag && (
               <Image
-                priority
                 src={paymentInfo.img}
                 alt={paymentInfo.flag}
                 width={38}

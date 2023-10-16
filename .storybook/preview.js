@@ -1,14 +1,12 @@
 import '../.jest/next-image.mock'
-import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { addDecorator } from '@storybook/react'
 import { ThemeProvider } from 'styled-components'
-import { CartContext, CartContextDefaultValue } from 'hooks/use-cart'
+import { CartContext, CartContextDefaultValues } from 'hooks/use-cart'
+import { withNextRouter } from 'storybook-addon-next-router'
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
 
 export const parameters = {
-  nextRouter: {
-    Provider: RouterContext.Provider
-  },
   backgrounds: {
     default: 'won-light',
     values: [
@@ -24,17 +22,19 @@ export const parameters = {
   }
 }
 
+addDecorator(withNextRouter())
+
 export const decorators = [
   (Story, context) => (
     <ThemeProvider theme={theme}>
       <CartContext.Provider
         value={{
-          ...CartContextDefaultValue,
+          ...CartContextDefaultValues,
           ...(context?.args?.cartContextValue || {}),
           ...context.args
         }}
       >
-        <GlobalStyles removeBG />
+        <GlobalStyles removeBg />
         <Story />
       </CartContext.Provider>
     </ThemeProvider>
